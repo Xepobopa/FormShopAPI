@@ -25,6 +25,14 @@ namespace WebAPI.Controllers
             return _products.FirstOrDefault(x => x.Id.Equals(Id));
         }
 
+        [HttpPost("{Product}")]
+        public void Post(Product obj)
+        {
+            var connection = new DatabaseConnection(new ControllerJson().jsonModel).connection;
+            _products.Add(obj);
+            connection.Insert<Product>(obj);
+        }
+
         public List<Product> _products { private set; get; }
     }
 }
